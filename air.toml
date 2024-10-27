@@ -1,0 +1,5 @@
+# Config for Air
+[build]
+cmd = "go build -o ./tmp/live-chat-go main.go"
+bin = "./tmp/live-chat-go"
+full_bin = true
