@@ -8,7 +8,6 @@ import (
 )
 
 //USER Struct
-
 type User struct {
 	ID		 	int
 	Username 	string
