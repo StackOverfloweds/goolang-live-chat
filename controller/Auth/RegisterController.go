@@ -2,35 +2,23 @@ package auth
 
 import (
 	"encoding/json"
-	"go-live-chat/middleware"
 	"go-live-chat/model"
 	"net/http"
 )
 
 //create login controller handler
-func LoginController (w http.ResponseWriter, r *http.Request) {
-	var creds struct {
-		Email string `json:"email"`
-		Password string `json:"password"`
-	}
+func RegisterController (w http.ResponseWriter, r *http.Request) {
+	var user model.User
 
-	if err :=json.NewDecoder(r.Body).Decode(&creds); err != nil {
-		http.Error(w, "invalid input",http.StatusBadRequest)
+	if err :=json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, "invalid input", http.StatusBadRequest)
 		return
 	}
 
-	user, err:=model.Authenticate(creds.Email,creds.Password)
-	if err!=nil {
-		http.Error(w, "Invalid Credential",http.StatusUnauthorized)
-		return 
-	}
-
-	token, err := middleware.GenerateJWT(user.ID)
-	if err != nil {
-		http.Error(w, "could not generate token", http.StatusInternalServerError)
+	if err := user.Register(); err != nil {
+		http.Error(w, "Error Registered User", http.StatusInternalServerError)
 		return
 	}
 
-	w.Header().Set("content-type", "aplication/json")
-	json.NewEncoder(w).Encode(map[string]string{"token": token})
+	w.Write([]byte("user Registered Successfully"))
 }
