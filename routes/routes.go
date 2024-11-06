@@ -43,6 +43,22 @@ func SetupRoutes () {
 		}
 	})
 
+	// // Chat routes
+	// mux.HandleFunc("/chat/send", func(w http.ResponseWriter, r *http.Request) {
+	// 	switch r.Method {
+	// 	case http.MethodPost:
+			
+	// 	}
+	// })
+
+	// mux.HandleFunc("/chat/messages", func(w http.ResponseWriter, r *http.Request) {
+	// 	if r.Method == http.MethodGet {
+	// 		chat_controller.GetMessages(w, r)
+	// 	} else {
+	// 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	// 	}
+	// })
+
 	//start the HTTP server with mux handler
 	http.Handle("/",mux)
 
